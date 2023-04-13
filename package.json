@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "keycode": "^2.2.1",
+    "robotjs": "^0.6.0"
+  },
+  "devDependencies": {
+    "node-key-sender": "^1.0.11"
+  }
+}

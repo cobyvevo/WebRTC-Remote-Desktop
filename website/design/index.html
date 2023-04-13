@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+	<title>Cobert Webgaming</title>
+	 <!-- Bootstrap CSS -->
+        <link type="text/css" rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <!-- Pixel CSS -->
+        <link type="text/css" rel="stylesheet" href="css/w95.css">
+        <!-- Global site tag (gtag.js) - Google Analytics --> <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141734189-1"></script> <script>   window.dataLayer = window.dataLayer || [];   function gtag(){dataLayer.push(arguments);}   gtag('js', new Date());    gtag('config', 'UA-141734189-1'); </script>
+</head>
+
+
+<body style="    
+	-webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    background-color: rgb(20,20,20); 
+    overscroll-behavior: contain;
+    ">
+
+	<video style="
+
+	background-color: black; 
+	margin: auto;
+	width: 100%;
+	position: fixed;
+	top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    object-fit:cover;
+	z-index: -10;
+	" class="video-player" id="remote-video" autoplay playsinline oncontextmenu="return false;"></video>
+
+	<div class="content" id="mobile_controls" style="  
+		  position: fixed;
+		  bottom: 0;
+		  background: rgba(155, 0, 0, 0);
+		  width: 100%;
+		  height: 100%;
+		  pointer-events: none; 
+		  ">	
+
+		  <div class="content" id="mobile_joystick" style="
+		  
+		  position: fixed;
+		  background: rgba(0, 155, 0, 1);
+		  width: 40%;
+		  height: 80%;
+
+		  bottom: 10%;
+		  top: 10%;
+		  ">
+
+		  </div>
+
+
+	</div>
+
+	<div class="content2" id="content2" style="  
+		  position: absolute;
+		  top: 0;
+		  background: rgba(0, 0, 0, 0);
+		  color: #f1f1f1;
+		  padding: 20px;
+		  right: 0px;
+		  ">
+		  <button id="hide" class="btn btn-sm btn-primary" >Hide</button>
+	</div>
+
+	<div class="content" id="content" style="  
+		  position: fixed;
+		  bottom: 0;
+		  background: rgba(0, 0, 0, 0.5);
+		  color: #f1f1f1;
+		  width: 100%;
+		  padding: 20px;
+		  ">
+
+		<ul id="messages" ></ul>
+
+		<div class="col-12 col-lg-3 mb-4 mb-lg-0">
+            <div class="card card-tertiary">
+                <div class="card-header text-center">
+                    <span>HighYield Communicator 3000</span>
+                </div>
+                <div class="card-body">
+
+                    <div class="text-center">
+                    	<form id="form" action="" class="form-group d-flex align-items-center justify-content-between focused">
+
+                    		<input id="input" autocomplete="off" type="password" class="form-control w-75"/>
+							<button class="btn btn-sm mr-2 btn-primary border-dark" type="button">Send</button>
+							
+						</form>
+						<label class="mr-2">Quality:</label><input type="range" min="1" max="10" value="5" class="slider" id="qualitysilder">
+                        <button class="btn btn-sm mr-2 btn-primary border-dark" type="button" id="start"><span class="btn-text">Start</span></button>
+                        <button class="btn btn-sm btn-primary" type="button" id="fill"><span class="btn-text">Fill</span></button>
+                        <button class="btn btn-sm btn-primary" type="button" id="immerseswitch"><span class="btn-text">Mouse Mode: Immersive</span></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+ <!--
+		<form id="form" action="">
+			<input id="input" autocomplete="off" /><button>Send</button>
+		</form>
+		<button id="start">Start</button>
+		<b>Quality:</b><input type="range" min="1" max="10" value="5" class="slider" id="qualitysilder">
+		<button id="fill">Fill</button>
+-->
+	</div>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+
+		const MouseEvents = {
+			LEFT_DOWN: 0,
+		    LEFT_UP: 1,
+
+		    RIGHT_DOWN: 2,
+		    RIGHT_UP: 3,
+
+		    MIDDLE_DOWN: 4,
+		    MIDDLE_UP: 5,
+
+		    SCROLL: 6,
+
+		    //others
+
+		    KEYBOARD: 7,
+		    MOVEMENT: 8
+		}		
+
+		let vars = {
+			iceServers: [
+			      {
+			      	urls:[
+							"stun:stun1.1.google.com:19302",
+							"stun:stun2.1.google.com:19302",
+							"stun:relay.metered.ca:80"
+						]
+			      }
+			],
+		}
+
+		var form = document.getElementById("form");
+		var input = document.getElementById("input");
+		var video = document.getElementById("remote-video");
+		var msgbox = document.getElementById("messages");
+		var start = document.getElementById("start");
+		var hide = document.getElementById("hide");
+		var quality = document.getElementById("qualitysilder")
+		var content = document.getElementById("content")
+		var fill = document.getElementById("fill");
+		var immerseswitch = document.getElementById("immerseswitch");
+		var joystick = document.getElementById("mobile_joystick")
+
+		var hidden = false;
+		var immersivemode = false;
+
+		video.onclick = function() {
+			if (immersivemode == true) {return;}
+			video.requestPointerLock();
+
+		}
+
+		immerseswitch.onclick = function () {
+
+			immersivemode = !immersivemode
+			if (immersivemode == false) {
+				immerseswitch.innerHTML = "Mouse Mode: Immersive";
+			} else {
+				immerseswitch.innerHTML = "Mouse Mode: Responsive";
+			}
+
+		}
+
+		hide.onclick = function() {
+			hidden = !hidden;
+			if (hidden) {
+				content.style.display = "none";
+				hide.innerHTML = "Show";
+				hide.style.opacity = "20%";
+			} else {
+				content.style.display = "block";
+				hide.innerHTML = "Hide";
+				hide.style.opacity = "100%";
+			}
+
+			const elem = document.documentElement;
+   			if (elem.requestFullscreen) {elem.requestFullscreen()}
+   
+		}
+
+		let isfill = false
+		fill.onclick = function() {
+			isfill = !isfill;
+			if (isfill) {
+				video.style.height = "100%";
+				fill.innerHTML = "Fit";
+			} else {
+				video.style.height = "";
+				fill.innerHTML = "Fill";
+			}
+		}
+
+		var localStream;
+		var peerConnection;
+		var remoteStream;
+
+		function createlistmsg(msg) {
+			var item = document.createElement("li");
+			item.textContent = msg;
+			messages.appendChild(item);
+		}
+
+		video.setAttribute("tabindex",0);
+		
+		video.onkeydown = function(keyhit) {
+			let up = true;
+			let key = keyhit.keyCode;
+			let control = MouseEvents.KEYBOARD;
+			socket.emit("control",{control,key,up});
+		}
+
+		video.onkeyup = function(keyhit) {
+			let up = false;
+			let key = keyhit.keyCode;
+			let control = MouseEvents.KEYBOARD;
+			socket.emit("control",{control,key,up});
+		}
+		//"http://192.168.1.124:3000"
+		var socket = io.connect();
+
+		video.onmousedown = function(mouse) { 
+      		let control = MouseEvents.LEFT_DOWN;
+      		let param = 0;
+      		switch (mouse.button) {
+      			case 0:
+      				control = MouseEvents.LEFT_DOWN;
+      				break;
+      			case 1:
+      				control = MouseEvents.MIDDLE_DOWN;
+      				break;
+      			case 2:
+      				control = MouseEvents.RIGHT_DOWN;
+      				break;
+      		}
+			socket.emit("control",{control, param})
+		}
+
+		video.onmouseup = function(mouse) {
+      		let control = MouseEvents.LEFT_UP;  		
+      		let param = 0;
+
+      		switch (mouse.button) {
+      			case 0:
+      				control = MouseEvents.LEFT_UP;
+      				break;
+      			case 1:
+      				control = MouseEvents.MIDDLE_UP;
+      				break;
+      			case 2:
+      				control = MouseEvents.RIGHT_UP;
+      				break;
+      		}
+			socket.emit("control",{control, param})
+		}
+
+		video.onwheel = function(whell) {
+			let control = MouseEvents.SCROLL;
+      		let param = whell.deltaY*-50;
+			socket.emit("control",{control, param})		
+		}
+
+		video.onmousemove = function (mouse){
+			console.log(mouse)
+			if (immersivemode == false) {
+	      		let deltax = mouse.movementX;
+	      		let deltay = mouse.movementY;
+	      		let control = MouseEvents.MOVEMENT;
+	      		let param = 0;
+	      		socket.emit("control",{control, deltax,deltay, immersivemode})
+	      	} else {
+	      		let deltax = mouse.offsetX / video.offsetWidth;
+	      		let deltay = mouse.offsetY / video.offsetHeight;
+	      		let control = MouseEvents.MOVEMENT;
+	      		let param = 0;
+
+	      		deltax *= 25565
+	      		deltay *= 25565
+	      		
+	      		socket.emit("control",{control, deltax,deltay, immersivemode})
+	      	}
+
+		}
+
+		let enable_touch_move = false;
+		let oldx = 0;
+		let oldy = 0;
+
+		video.ontouchmove = function (input){
+			//var rect = video.getBoundingClientRect();
+      		var x = input.touches[0].clientX; //x position within the element.
+      		var y = input.touches[0].clientY;  //y position within the element.
+
+      		let deltax = x-oldx;
+      		let deltay = y-oldy;
+
+      		oldx = x;
+      		oldy = y;
+
+      		let control = MouseEvents.MOVEMENT;
+      		let param = 0;
+      		if (enable_touch_move == false) {
+				enable_touch_move = true
+				return
+			}
+      		socket.emit("control",{control, deltax,deltay})
+		}
+
+		let joysticking = false;
+		let joyx = 0;
+		let joyy = 0;
+
+		joystick.ontouchmove = function (input){
+      		var x = input.touches[0].offsetX - joystick.offsetWidth/2; //x position within the element.
+      		var y = input.touches[0].offsetY - joystick.offsetHeight/2;  //y position within the element.
+
+      		joyx = x;
+      		joyx = y;
+		}
+
+		joystick.ontouchstart = function () {
+			// body...
+			joysticking = true
+		}
+
+		joystick.ontouchend = function () {
+			// body...
+			joysticking = false 
+		}
+
+		video.ontouchstart = function () {
+			socket.emit("control",{control:MouseEvents.LEFT_DOWN, param:0})
+		}
+		video.ontouchend = function () {
+			socket.emit("control",{control:MouseEvents.LEFT_UP, param:0})
+		}
+
+		setInterval(() => {
+			if (joysticking == true) {
+				let deltax = joyx;
+				let delaty = joyy;
+				socket.emit("control",{control, deltax,deltay})
+			}
+		}, 20)
+
+		video.ontouchend = (e) => {
+			enable_touch_move = false;
+		}
+
+		async function createAnswer(offer) {	
+			console.log("creating answer");
+
+			peerConnection = new RTCPeerConnection(vars);
+			remoteStream = new MediaStream(peerConnection.getReceivers().map(receiver => receiver.track));		
+			video.srcObject = remoteStream;
+
+			peerConnection.ontrack = async (event) => {
+				console.log(event);
+				remoteStream.addTrack(event.track);
+			}
+
+			peerConnection.onicecandidate = function(event) {
+			  if (!event.candidate) {
+				createlistmsg("One of the Ice candidates did not work! there may be connection issues. Could be because of firewall?")
+			  }
+			};
+
+			peerConnection.onicegatheringstatechange = function(event) {
+				console.log("ICE gathering state changed: " + event.target.iceGatheringState);
+
+				if (event.target.iceGatheringState == "complete") {
+					console.log("Complete! ready to send answer.");
+					createlistmsg("Completed Ice candidate gathering!")
+					socket.emit("RTCanswer", peerConnection.localDescription);
+				}
+			};
+
+			await peerConnection.setRemoteDescription(offer);
+
+			peerConnection.createAnswer().then(answer => {
+
+				console.log("Setting LD");
+
+				peerConnection.setLocalDescription(answer);
+				
+				createlistmsg("Answer generated!");
+				console.log(answer);
+				//messages.appendChild(item);
+
+			});
+
+
+		}
+
+		let offer;
+
+		form.addEventListener("submit" ,function(e) {
+			e.preventDefault();
+			socket.emit("command",input.value);
+		})
+
+		quality.onmouseup = function () {
+			console.log(this.value);
+			let val = this.value*10;
+
+			socket.emit("quality", val);
+		}
+
+		quality.ontouchend = function () {
+			console.log(this.value);
+			let val = this.value*10;
+
+			socket.emit("quality", val);
+		}
+
+
+		start.onclick = function (button) {
+			button.preventDefault();
+			createlistmsg("Connecting. Please wait...");
+			createAnswer(offer);
+		};
+
+		socket.on("logmessage",function(msg) {
+			createlistmsg(msg);
+		})
+
+		socket.on("RTCoffer",function(msg) {
+			console.log(msg);
+			createlistmsg("Offer recieved")
+			offer = msg;
+		})
+
+	</script>
+
+</body>
+
+</html>

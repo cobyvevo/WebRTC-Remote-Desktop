@@ -1,0 +1,227 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"backgro",
+				"background-color\tproperty"
+			]
+		]
+	},
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"package resor",
+				"PackageResourceViewer: Open Resource"
+			],
+			[
+				"install pack",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/A/Desktop/C++/projects/my projects/Pro/cobertCapture/Project/Untitled.sublime-project",
+		"/A/Desktop/C++/projects/Untitled/Untitled.sublime-project",
+		"/A/cshir/AppData/Roaming/Sublime Text 3/Packages/Default/exec.py",
+		"/A/Music/MUSIC/spitfire/Spitfire Audio - LABS/Samples/LABS Soft Piano/LABS_GRAND_TOASTY_HALL_NORM_06.spitfire",
+		"/A/Desktop/p5js/test/sketch.js",
+		"/A/Desktop/p5js/empty-example/index.html",
+		"/A/Desktop/p5js/test/index.html",
+		"/A/cshir/Documents/ShareX/Screenshots/2021-08/tf2moment_Trim.mp4",
+		"/A/cshir/Documents/Dev Assets/Roblox/Hedge/NEW TEST/weblet/untitled.blend",
+		"/A/Music/MUSIC/spitfire/Spitfire Audio - LABS/Presets/LABS Soft Piano/v1.0.5/LABS_Soft_Piano.zpreset",
+		"/A/Music/MUSIC/spitfire/Spitfire Audio - LABS/Samples/LABS Soft Piano/LABS_SOFTPIANO_PEDON_01.spitfire",
+		"/A/Music/MUSIC/spitfire/Spitfire Audio - LABS/Samples/LABS Soft Piano/LABS_SOFT_PIANO.db",
+		"/A/Music/MUSIC/spitfire/Spitfire Audio - LABS/Patches/LABS Soft Piano/v1.0.5/LABS_Soft_Piano.zmulti",
+		"/A/cshir/AppData/Roaming/Spitfire Audio/Settings/lm.conf",
+		"/A/cshir/AppData/Roaming/Spitfire Audio/Settings/Spitfire.properties",
+		"/A/cshir/AppData/Roaming/Spitfire Audio/Settings/Labs.settings",
+		"/A/Desktop/ubisoft-laforge-animation-dataset-master/README.md",
+		"/A/cshir/AppData/Roaming/Spitfire Audio/Settings/BBC Symphony Orchestra.settings",
+		"/A/cshir/AppData/Roaming/Spitfire Audio/Settings/Spitfire.properties.bad",
+		"/A/Desktop/huihhuihiu.rbxl",
+		"/A/Programs/Minecraft/resourcepacks/pbr minecroft/assets/minecraft/optifine/emissive.properties",
+		"/A/Programs/Minecraft/resourcepacks/pbr minecroft/assets/minecraft/optifine/colormap.properties",
+		"/A/Desktop/tf2 mod/SCA (Compiled)/models/weapons/c_models/animations/soldier/rocket_launcher.mdl",
+		"/A/Desktop/tf2 mod/SCA (Source)/Soldier/Rocket Launcher/dh_reload_start_alt.smd",
+		"/A/Desktop/tf2 mod/Mod/Animation Compile Files/Soldier - cobywhy Animations/Rocket Launcher/c_soldier_rocket_launcher.qc",
+		"/A/Desktop/my own tf2 version",
+		"/A/Desktop/tf2 mod/EXPORT/c_soldier_arms.mdl",
+		"/C/Users/cshir/AppData/cd",
+		"/A/Programs/Minecraft/saves/hard core twenty twenty one - TEST PALCE/level.dat",
+		"/A/Programs/Minecraft/saves/hard core twenty twenty one - TEST PALCE/playerdata/57f3273a-f0d4-4f70-8f54-e435800b8770.dat",
+		"/A/Downloads/styles.css",
+		"/A/Downloads/eiffel-tower.html",
+		"/A/Downloads/Tully Monster.html",
+		"/A/Music/i am not ableto n/spitfire/LABS (64 Bit).dll",
+		"/C/Program Files/Common Files/Avid/Audio/Plug-Ins/LABS (64 Bit).aaxplugin/Contents/x64/LABS (64 Bit).aaxplugin",
+		"/A/Programs/Riftcat 2/Config/vridge.cfg",
+		"/A/cshir/Documents/PORTFOLIO WORK/guns/MPA30/WEAPON/MPASST-30.FBX",
+		"/C/Program Files/MySQL/MySQL Server 8.0/README",
+		"/A/cshir/AppData/Roaming/Discord/Cache/f_001fdb",
+		"/A/cshir/AppData/Roaming/Discord/Cache/f_001fda",
+		"/A/cshir/AppData/Roaming/Discord/Cache/f_001fdc",
+		"/A/Desktop/vbs test.png",
+		"/D/love/particles/main.lua",
+		"/A/Desktop/youtube.lua",
+		"/C/Program Files/VideoLAN/VLC/lua/playlist/youtube.lua",
+		"/C/Program Files/VideoLAN/VLC/lua/playlist/youtube.luac",
+		"/A/Desktop/rp/pack.mcmeta"
+	],
+	"find":
+	{
+		"height": 29.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"https",
+			"end"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"incremental_find":
+	{
+		"height": 29.0
+	},
+	"input":
+	{
+		"height": 41.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.201171875,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 241.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Debug Build 64bit",
+	"replace":
+	{
+		"height": 54.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 244.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
